@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diga-nos a sua Opinião</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+      background: url('https://raw.githubusercontent.com/Bragatur/avaliacao/refs/heads/main/515050897_1213856377449302_40113090961162090_n.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    main {
+      max-width: 500px;
+      width: 100%;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lang-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+    .lang-buttons button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+      border-radius: 5px;
+      overflow: hidden;
+      width: 40px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lang-buttons button:hover,
+    .lang-buttons button:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
+    .lang-buttons button.selected {
+      box-shadow: 0 0 0 2px white;
+      transform: scale(1.15);
+    }
+    .lang-buttons img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 2em;
+      line-height: 1.2;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+    p {
+      margin: 0 0 30px 0;
+      font-size: 1.1em;
+      line-height: 1.4;
+      max-width: 100%;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+    .link-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      width: 100%;
+      max-width: 300px;
+      border: none;
+      border-radius: 30px;
+      background-color: #2575fc;
+      color: white;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    .link-button:hover,
+    .link-button:focus {
+      background-color: #1a5bbf;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      outline: none;
+    }
+    .footer {
+      font-size: 0.9em;
+      color: #ccc;
+      user-select: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    @media (max-width: 600px) {
+      main { padding: 20px 15px; max-width: 100%; border-radius: 15px; }
+      h1 { font-size: 1.6em; }
+      p { font-size: 1em; }
+      .lang-buttons button { width: 36px; height: 25px; }
+      .link-button { max-width: 100%; padding: 12px; font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <main>
+      <div class="lang-buttons" role="group" aria-label="Selecione seu idioma">
+        <button onclick="setLanguage('pt')" aria-label="Português"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/pt.svg" alt="Português" /></button>
+        <button onclick="setLanguage('es')" aria-label="Español"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/es.svg" alt="Español" /></button>
+        <button onclick="setLanguage('en')" aria-label="English"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/gb.svg" alt="English" /></button>
+        <button onclick="setLanguage('fr')" aria-label="Français"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/fr.svg" alt="Français" /></button>
+        <button onclick="setLanguage('de')" aria-label="Deutsch"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/de.svg" alt="Deutsch" /></button>
+      </div>
+      <h1 id="title"></h1>
+      <p id="description"></p>
+      <a id="survey-satisfaction" class="link-button" href="https://forms.office.com/e/3dpGiBM4rQ" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-comment-dots"></i> Inquérito de Satisfação
+      </a>
+      <a id="survey-environment" class="link-button" href="https://example.com/inquerito-ambiente" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-leaf"></i> Inquérito de Ambiente
+      </a>
+      <div class="footer">© Município de Braga</div>
+    </main>
+  </div>
+  <script>
+    const texts = {
+      pt: {
+        title: "Diga-nos a sua Opinião",
+        description: "Dispense-nos algum do seu tempo para dar a sua opinião da sua visita a Braga. Esperamos voltar a vê-lo brevemente.",
+        surveySatisfaction: "Inquérito de Satisfação",
+        surveyEnvironment: "Inquérito de Ambiente"
+      },
+      es: {
+        title: "Cuéntenos su Opinión",
+        description: "Dedíquenos un poco de su tiempo para darnos su opinión sobre su visita a Braga. Esperamos verle de nuevo pronto.",
+        surveySatisfaction: "Encuesta de Satisfacción",
+        surveyEnvironment: "Encuesta de Medio Ambiente"
+      },
+      en: {
+        title: "Tell Us Your Opinion",
+        description: "Take a moment to share your opinion about your visit to Braga. We hope to see you again soon.",
+        surveySatisfaction: "Satisfaction Survey",
+        surveyEnvironment: "Environmental Survey"
+      },
+      fr: {
+        title: "Donnez-nous votre avis",
+        description: "Accordez-nous un moment pour donner votre avis sur votre visite à Braga. Nous espérons vous revoir bientôt.",
+        surveySatisfaction: "Enquête de Satisfaction",
+        surveyEnvironment: "Enquête Environnementale"
+      },
+      de: {
+        title: "Sagen Sie uns Ihre Meinung",
+        description: "Nehmen Sie sich einen Moment Zeit, um uns Ihre Meinung zu Ihrem Besuch in Braga mitzuteilen. Wir hoffen, Sie bald wiederzusehen.",
+        surveySatisfaction: "Zufriedenheitsumfrage",
+        surveyEnvironment: "Umweltumfrage"
+      }
+    };
+    function setLanguage(lang) {
+      if (!texts[lang]) lang = "en";
+      const content = texts[lang];
+      document.getElementById("title").textContent = content.title;
+      document.getElementById("description").textContent = content.description;
+      document.getElementById("survey-satisfaction").innerHTML = '<i class="fas fa-comment-dots"></i> ' + content.surveySatisfaction;
+      document.getElementById("survey-environment").innerHTML = '<i class="fas fa-leaf"></i> ' + content.surveyEnvironment;
+      document.documentElement.lang = lang;
+      document.title = content.title;
+      document.querySelectorAll(".lang-buttons button").forEach((b) =>
+        b.classList.remove("selected")
+      );
+      const selectedBtn = [...document.querySelectorAll(".lang-buttons button")].find((b) =>
+        b.getAttribute("onclick").includes(`setLanguage('${lang}')`)
+      );
+      if (selectedBtn) selectedBtn.classList.add("selected");
+    }
+    const userLang = navigator.language.toLowerCase().split("-")[0];
+    const supported = Object.keys(texts);
+    setLanguage(supported.includes(userLang) ? userLang : "en");
+  </script>
+</body>
+</html>
