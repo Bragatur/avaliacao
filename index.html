@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Cabeçalho mantém-se igual -->
+</head>
+<body>
+  <div class="overlay">
+    <main>
+      <div class="lang-buttons" role="group" aria-label="Selecione seu idioma">
+        <button onclick="setLanguage('pt')" aria-label="Português"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/pt.svg" alt="Português" /></button>
+        <button onclick="setLanguage('es')" aria-label="Español"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/es.svg" alt="Español" /></button>
+        <button onclick="setLanguage('en')" aria-label="English"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/gb.svg" alt="English" /></button>
+        <button onclick="setLanguage('fr')" aria-label="Français"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/flags/4x3/fr.svg" alt="Français" /></button>
+      </div>
+      <h1 id="title"></h1>
+      <p id="description"></p>
+      <a id="survey-satisfaction" class="link-button" href="https://forms.office.com/e/3dpGiBM4rQ" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-comment-dots"></i>
+      </a>
+      <a id="survey-environment" class="link-button" href="https://forms.office.com/e/xa8NnwpRWp" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-leaf"></i>
+      </a>
+      <div class="footer">© Município de Braga</div>
+    </main>
+  </div>
+  <script>
+    const texts = {
+      pt: {
+        title: "Diga-nos a sua Opinião",
+        description: "Dispense-nos algum do seu tempo para dar a sua opinião da sua visita a Braga. Esperamos voltar a vê-lo brevemente.",
+        surveySatisfaction: "Avaliação do Serviço",
+        surveyEnvironment: "Avaliação Ambiental de Braga"
+      },
+      es: {
+        title: "Cuéntenos su Opinión",
+        description: "Dedíquenos un poco de su tiempo para darnos su opinión sobre su visita a Braga. Esperamos verle de nuevo pronto.",
+        surveySatisfaction: "Evaluación del Servicio",
+        surveyEnvironment: "Evaluación Ambiental de Braga"
+      },
+      en: {
+        title: "Tell Us Your Opinion",
+        description: "Take a moment to share your opinion about your visit to Braga. We hope to see you again soon.",
+        surveySatisfaction: "Service Evaluation",
+        surveyEnvironment: "Environmental Evaluation of Braga"
+      },
+      fr: {
+        title: "Donnez-nous votre avis",
+        description: "Accordez-nous un moment pour donner votre avis sur votre visite à Braga. Nous espérons vous revoir bientôt.",
+        surveySatisfaction: "Évaluation du Service",
+        surveyEnvironment: "Évaluation Environnementale de Braga"
+      }
+    };
+    function setLanguage(lang) {
+      if (!texts[lang]) lang = "en";
+      const content = texts[lang];
+      document.getElementById("title").textContent = content.title;
+      document.getElementById("description").textContent = content.description;
+      document.getElementById("survey-satisfaction").innerHTML = '<i class="fas fa-comment-dots"></i> ' + content.surveySatisfaction;
+      document.getElementById("survey-environment").innerHTML = '<i class="fas fa-leaf"></i> ' + content.surveyEnvironment;
+      document.documentElement.lang = lang;
+      document.title = content.title;
+      document.querySelectorAll(".lang-buttons button").forEach((b) =>
+        b.classList.remove("selected")
+      );
+      const selectedBtn = [...document.querySelectorAll(".lang-buttons button")].find((b) =>
+        b.getAttribute("onclick").includes(`setLanguage('${lang}')`)
+      );
+      if (selectedBtn) selectedBtn.classList.add("selected");
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const userLang = navigator.language.toLowerCase().split("-")[0];
+      const supported = Object.keys(texts);
+      setLanguage(supported.includes(userLang) ? userLang : "en");
+    });
+  </script>
+</body>
+</html>
